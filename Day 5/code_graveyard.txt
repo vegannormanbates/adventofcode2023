@@ -1,0 +1,95 @@
+Just dumping all my trash code that didn't work in day5 lol
+
+# for rng in seed_rngs:
+#     for soil_rng in maps[0]:
+#         overlap= rangeMaker(rng[0],rng[1], soil_rng[0], soil_rng[1])
+#         #print(overlap)
+#         if len(overlap) > 0:
+#             overlaps.append(overlap[0])
+# locations2 = []
+# print (overlaps)
+# for x,y in overlaps:
+#     for i in range(x,y):
+#         locations2.append(rangeFinder(i))
+#     print("Locations:".min(locations2))
+
+# print("Part 2: ", min(locations2))
+
+
+
+#print(seed_rngs)
+
+#Graveyard of bad ideas - all failed because they just wanted to try all of the seeds.
+# seed_rngs = []
+# index = 0
+# for x in seeds[::2]:
+#      if index + 1 <= len(seeds):
+#          for y in range(x,x + seeds[index+1]):
+#              seed_rngs.append(y)
+#      index += 2
+
+# for location in range(0,9999999999):
+#     seed = revRangeFinder(location)
+#     if seed in seed_rngs:
+#         print ("Part 2:", location)
+#         break
+
+# works great on sample data. Crashes after using 57gb of memory on my macbook
+# seed_rngs = []
+# index = 0
+# for x in seeds[::2]:
+#     if index + 1 <= len(seeds):
+#         for y in range(x,x + seeds[index+1]):
+#             seed_rngs.append(y)
+#     index += 2
+# prt2_locations = []
+# for x in seed_rngs:
+#         prt2_locations.append(rangeFinder(x))
+#  print('Part 2: ', min(prt2_locations))
+
+#lets try just looking at a bunch of random points and see if there are any trends
+
+# seed_limits = range(3660685134,3660685334,1)
+# #test = [set(seed_limits) & set(seed_rngs)]
+# test = seed_limits
+# prt2_locations = []
+# for x in test:
+#     loc = rangeFinder(x)
+#     if loc != x:
+#         prt2_locations.append(loc)
+#         print ("Rangefinder:", x,"Location:",loc )
+# print (min(prt2_locations))
+
+def rangeMaker(strt, end, dst_strt, dst_end):
+    left = (strt,min(end,dst_strt))
+    overlap = (max(strt,dst_strt),min(end,dst_end))
+    right = (max(dst_end,strt),end)
+    temp_rng = []
+    overlaps = []
+
+    if left[1] > left[0]:
+        temp_rng.append(left)
+    elif overlap[1] > overlap[0]:
+        overlaps.append((dst_strt +(overlap[0]-strt),dst_strt + (overlap[1]-strt)))
+    elif right[1] > right[0]:
+        temp_rng.append(right)
+    return overlaps 
+
+
+def rangeMaker(seed, Map):
+    (seed_strt, seed_end)  = seed.pop()
+    for src, end, dst_strt in Map:
+        dst_end = dst_strt + (end-src)
+        left = (seed_strt,min(seed_end,dst_strt))
+        overlap = (max(seed_strt,dst_strt),min(seed_end,dst_end))
+        right = (max(dst_end,seed_strt),seed_end)
+        edges = []
+        overlaps = []
+
+        if left[1] > left[0]:
+            edges.append(left)
+        elif overlap[1] > overlap[0]:
+            overlaps.append((dst_strt +(overlap[0]-seed_strt),dst_strt + (overlap[1]-seed_strt)))
+        elif right[1] > right[0]:
+            edges.append(right)
+    return overlaps + edges
