@@ -1,6 +1,5 @@
 #!/usr/bin/python
 #Advent of Code 2023 Day 8
-#from math import lcm
 from math import gcd
 directions =[]
 nodes = []
