@@ -32,7 +32,5 @@ part2 = 0
 for sequence in history:
     part1 += getNext(sequence)
     part2 += getLast(sequence)
-
-
 print ("Part 1: ", part1)
 print ("Part 2: ", part2)
