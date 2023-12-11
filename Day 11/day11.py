@@ -56,16 +56,14 @@ for x,y in combinations(galaxies,2):
     count += 1
 print ('Part 1:', sum(distances))
 distances = []
-expansion = 999999
+expansion = 999999 #One less than 1 million
 expanded = []
 for i, old in enumerate(original_galaxies):
-    print ("Comparing: ", old,"to",galaxies[i])
     x = abs(galaxies[i][0] - old[0]) * expansion
     y = abs(galaxies[i][1] - old[1]) * expansion
-    print('new: ', x,y)
     expanded.append([old[0]+x,old[1]+y])
 
 for x,y in combinations(expanded,2):
     distance = abs(y[0] - x[0]) + abs(y[1] - x[1])
     distances.append(distance)
-print ('Part 2: ', sum(distances))
+print ('Part 2:', sum(distances))
