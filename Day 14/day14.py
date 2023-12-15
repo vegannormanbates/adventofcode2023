@@ -122,25 +122,6 @@ def calcLoad(platform):
         load += rounds * rows
         rows -= 1
     return load
-def findCycle(platform):
-    unique_arrangements = []
-    count = 0
-    while True:
-        platform = spinCycle(platform)
-        repeat = False
-        cycle_start = 0
-        for j, arrangement in enumerate(unique_arrangements):
-            if set(map(tuple,arrangement)) == set(map(tuple,platform)):
-                repeat = True
-                cycle_start = j
-        if repeat == False:
-            unique_arrangements.append(platform)
-            count+= 1
-        elif repeat == True:
-            for i, arrangement in enumerate(unique_arrangements):
-                print ("Arrangment ",i,": ", calcLoad(arrangement))
-            return cycle_start, unique_arrangements
-
 platform = []
 with open("input", "r") as txt:
     for line in txt:
@@ -151,28 +132,24 @@ platform = moveNorth(platform)
 print('Part 1: ',calcLoad(platform))
 
 platform = copy.deepcopy(orig_platform)
+iterations = 1000000000
+unique_arrangements = []
+i = 0
+repeat = False
+while i < iterations:
+    i += 1
+    platform = spinCycle(platform)
+    print ('Load: ',calcLoad(platform))
+    for arrangement in unique_arrangements:
+        if set(map(tuple,arrangement)) == set(map(tuple,platform)) and repeat == False:
+            print ('Repeat at: ',i)
+            repeat = True
+            frequency =  i - unique_arrangements.index(arrangement)
+            print ('\tFrequency: ',frequency)
+            iterations = (iterations - i) % frequency
+            print('\tIterations: ',iterations)
+            i = 0
+    if repeat == False:
+        unique_arrangements.append(platform)
 
-# for i in range(10000):
-#     print (i)
-#     platform = spinCycle(platform)
-#     repeat = False
-#     print ('Load: ',calcLoad(platform))
-#     for arrangement in unique_arrangements:
-#         if set(map(tuple,arrangement)) == set(map(tuple,platform)):
-#             print ('Repeat at: ',i)
-#             repeat = True
-#             repeat_index.append(i)
-#             break
-#     if repeat == False:
-#         unique_arrangements.append(platform)
-#     elif repeat == True:
-#         break
-
-# Need to find the cycle then get the load number for the arrangment we'd be at if running
-# 1000000000 times.... This code works for the sample input but not the actual input.
-cycle_start, platforms = findCycle(platform)
-length = len(platforms) - (cycle_start)
-iterations = ((1000000000 - cycle_start) % length) + cycle_start -1
-print ('Iterations: ',iterations)
-load = 0
-print('Part 2: ',calcLoad(platforms[iterations]))
+print('Part2: ', calcLoad(platform))
