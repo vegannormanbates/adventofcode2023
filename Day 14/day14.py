@@ -55,7 +55,6 @@ def moveSouth(platform):
         row.reverse()
         platform[idx] = row
     return list(zip(*platform))
-
 def moveWest(platform):
     for idx, row in enumerate(platform):
         row = list(row)
@@ -80,7 +79,6 @@ def moveWest(platform):
                 row.insert(move,row.pop(round)) # missing a condition on stacking multiples Os after a # but the way this processes it works
         platform[idx] = row
     return platform
-
 def moveEast(platform):
     for idx, row in enumerate(platform):
         row = list(row)
@@ -107,7 +105,6 @@ def moveEast(platform):
         row.reverse()
         platform[idx] = row
     return platform
-
 def spinCycle(platform):
     platform = moveNorth(platform)
     platform = moveWest(platform)
@@ -139,17 +136,12 @@ repeat = False
 while i < iterations:
     i += 1
     platform = spinCycle(platform)
-    print ('Load: ',calcLoad(platform))
     for arrangement in unique_arrangements:
         if set(map(tuple,arrangement)) == set(map(tuple,platform)) and repeat == False:
-            print ('Repeat at: ',i)
             repeat = True
             frequency =  i - unique_arrangements.index(arrangement)
-            print ('\tFrequency: ',frequency)
-            iterations = (iterations - i) % frequency
-            print('\tIterations: ',iterations)
-            i = 0
+            iterations = ((iterations - i) % (frequency-1)) + unique_arrangements.index(arrangement)
+            print('Part 2: ',calcLoad(unique_arrangements[iterations]))
+            break
     if repeat == False:
         unique_arrangements.append(platform)
-
-print('Part2: ', calcLoad(platform))
