@@ -27,7 +27,6 @@ def moveNorth(platform):
                 row.insert(move,row.pop(round)) # missing a condition on stacking multiples Os after a # but the way this processes it works
         platform[idx] = row
     return list(zip(*platform))
-
 def moveSouth(platform):
     platform = list(zip(*platform)) #rotate the platform
     for idx, row in enumerate(platform):

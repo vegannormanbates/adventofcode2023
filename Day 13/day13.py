@@ -66,5 +66,5 @@ for pattern in patterns:
 print("Part 1: " ,part1)
 part2 = 0
 for pattern in patterns:
-    part2+= findReflections(pattern, 1)
+    part2+= findReflections(pattern, 1) #Part 2 is still hella broken....
 print ("Part 2: ", part2)
