@@ -36,7 +36,7 @@ def returnType(hand):
      return hand['type']
 
 def charValue(char):
-    #part 1
+    #part 1 - SWAP THESE TO SWITCH BETWEEN PARTS
     #values = '23456789TJQKA'
     #part 2
     values = 'J23456789TQKA'
@@ -74,9 +74,6 @@ for i, hand in enumerate(hands):
 print("Part 1: ", total_winnings)
 
 #Part 2 - will J always get more points?
-
-# for i, hand in enumerate(hands):
-#      print ("Hand: ", i, hand)
 
 for hand in hands:
     count = hand['cards'].count('J')

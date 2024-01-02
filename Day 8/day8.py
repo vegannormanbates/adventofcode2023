@@ -33,7 +33,6 @@ while current_node != 'ZZZ':
     steps+= 1
 print ('Part 1: ', steps)
 
-
 a_nodes = []
 for x, i in enumerate(node_name):
     if i.endswith('A'):

@@ -99,8 +99,9 @@ with open("input", "r") as txt:
         line = line.strip()
         layout.append(list(line))
 
-print('Part 1: ', beamTracer(beams,layout)) #This passes the example set, and every example input I can find - but fails on my real input data 'too low - I wasn't
-# accounting for overlapping strings of x+y -had to had a splitter in the string
+print('Part 1: ', beamTracer(beams,layout))
+#This passes the example set, and every example input I can find - but fails on my real input data 'too low 
+# I wasn't accounting for overlapping strings of x+y -had to had a splitter in the string
 
 beams = []
 max_x = len(layout)
@@ -116,5 +117,5 @@ for beam in beams:
     energized = beamTracer([beam],layout)
     if energized > max_energized:
         max_energized = energized
-
+#This took a long time to run lol
 print('Part 2: ',max_energized)
